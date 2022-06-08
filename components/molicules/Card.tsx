@@ -43,10 +43,37 @@ const CardContainer = styled.div`
       color: #f30;
     }
   }
+  .color-options {
+    width: 100%;
+    display: none;
+    background-color: #80808033;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 5px;
+    align-items: center;
+    bottom: 1px;
+
+    div {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+
+      :hover {
+        display: block;
+        transition: 0.3s;
+        transform: scale(1.1);
+        border: 2px solid white;
+      }
+    }
+  }
   .discount-info {
     color: #f30;
-
     text-align: right;
+  }
+  .image-container {
+    position: relative;
   }
   .content:hover {
     border: 1px solid #80808061;
@@ -67,7 +94,6 @@ const CardContainer = styled.div`
     --max-lines: 2;
     max-height: calc(1.2em * var(--max-lines));
     overflow: hidden;
-
     :hover {
       color: #fcb800;
     }
@@ -107,6 +133,7 @@ const CardContainer = styled.div`
 `;
 const Card = (props: any) => {
   const { product } = props;
+  console.log(product);
   const [priceCalculator, setPriceCalculator] = useState({
     current_price: null,
     price: null,
@@ -133,7 +160,19 @@ const Card = (props: any) => {
   return (
     <CardContainer>
       <div className="content">
-        <img src={product.cover_image} alt={product.title} />
+        <div className="image-container">
+          <img src={product.cover_image} alt={product.title} />
+          <div className="color-options">
+            {product.variant.map((variant: any) => (
+              <div
+                key={variant.id}
+                color={variant.code}
+                style={{ background: variant.code }}
+              ></div>
+            ))}
+          </div>
+        </div>
+
         <div className="price-box">
           <div className="current-price">
             Rs.
