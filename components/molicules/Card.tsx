@@ -1,22 +1,28 @@
 import { Button } from "antd";
+import { useState } from "react";
 import styled from "styled-components";
 const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px;
-  width: 100%;
-  background-color: white;
-  align-items: center;
-  margin: 50px 0;
+  float: left;
+  width: 20%;
+  padding: 0 10px;
+  margin-bottom: 20px;
+  background: white;
+
+  cursor: pointer;
   & .content {
-    width: 18.5%;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid white;
+    transition: 0.8s;
+    /* width: 18.5%;
     justify-content: center;
     margin: 10px;
     float: left;
-    cursor: pointer;
+    
     padding: 15px;
     transition: 0.8s;
-    background-color: white;
+    background-color: white; */
   }
   .price-box {
     display: flex;
@@ -36,24 +42,29 @@ const CardContainer = styled.div`
     & .discount-price {
       color: #f30;
     }
-    & .discount-info {
-      color: #f30;
-    }
+  }
+  .discount-info {
+    color: #f30;
+
+    text-align: right;
   }
   .content:hover {
     border: 1px solid #80808061;
+
     transform: scale(1.1);
     transform: 0.6;
   }
   .title {
     margin: 0;
     display: block;
+    text-align: left;
     font-size: 14px;
     line-height: 1.7em;
     padding-bottom: 5px;
     padding-left: 0;
     color: #06c;
-    --max-lines: 3;
+    min-height: 70px;
+    --max-lines: 2;
     max-height: calc(1.2em * var(--max-lines));
     overflow: hidden;
 
@@ -85,182 +96,68 @@ const CardContainer = styled.div`
     display: block;
   }
   @media (max-width: 1000px) {
-    .content {
-      width: 22.5%;
-    }
+    width: 20%;
   }
   @media (max-width: 768px) {
-    .content {
-      width: 45%;
-    }
+    width: 50%;
   }
   @media (max-width: 425px) {
-    .content {
-      width: 100%;
-    }
+    width: 100%;
   }
 `;
-const Card = () => {
+const Card = (props: any) => {
+  const { product } = props;
+  const [priceCalculator, setPriceCalculator] = useState({
+    current_price: null,
+    price: null,
+    available_stock: null,
+  });
+
+  const discountedPrice = (
+    variant: any,
+    discount: number,
+    discount_type: string
+  ) => {
+    let current_price = variant.price;
+    if (discount && discount > 0) {
+      if (discount_type == "percent") {
+        current_price = current_price - (variant.price * discount) / 100;
+      } else {
+        current_price = current_price - discount;
+      }
+    }
+    return current_price;
+  };
+  //discountedPrice(product.variant[0], product.discount, product.discount_type);
+
   return (
     <CardContainer>
       <div className="content">
-        <img
-          src="https://rukminim1.flixcart.com/image/332/398/kyvvtzk0/shoe/5/q/w/9-500-corsac-black-original-imagbyzezm5vkhyf.jpeg?q=50"
-          alt="shoes"
-        />
+        <img src={product.cover_image} alt={product.title} />
         <div className="price-box">
-          <div className="current-price">Rs.10000</div>
-          <div className="discount-price">
-            <s>Rs.1000</s>
+          <div className="current-price">
+            Rs.
+            {discountedPrice(
+              product.variant[0],
+              product.discount,
+              product.discount_type
+            )}
           </div>
-          <div className="discount-info"> - 13% Off </div>
-        </div>
-        <h3 className="title">
-          Mens Shoes Price in Nepal - Buy Shoes For Men Online,Mens Shoes Price
-          in Nepal - Buy Shoes For Men Online,Mens Shoes Price in Nepal - Buy
-          Shoes For Men Online
-        </h3>
+          {product.discount && (
+            <small className="discount-price">
+              <s>Rs.{product.variant[0].price}</s>
+            </small>
+          )}
 
-        <div className="action">
-          <button className="btn">add to cart</button>
+          {product.discount && (
+            <small className="discount-info">
+              {"-"}
+              {product.discount}
+              {product.discount_type == "percent" ? "% Off" : " Rs Off"}{" "}
+            </small>
+          )}
         </div>
-      </div>
-      <div className="content">
-        <img
-          src="https://rukminim1.flixcart.com/image/332/398/kyvvtzk0/shoe/5/q/w/9-500-corsac-black-original-imagbyzezm5vkhyf.jpeg?q=50"
-          alt="shoes"
-        />
-        <div className="price-box">
-          <div className="current-price">Rs.10000</div>
-          <div className="discount-price">
-            <s>Rs.1000</s>
-          </div>
-          <div className="discount-info"> - 13% Off </div>
-        </div>
-        <h3 className="title">
-          Mens Shoes Price in Nepal - Buy Shoes For Men Online
-        </h3>
-
-        <div className="action">
-          <button className="btn">add to cart</button>
-        </div>
-      </div>
-      <div className="content">
-        <img
-          src="https://rukminim1.flixcart.com/image/332/398/kyvvtzk0/shoe/5/q/w/9-500-corsac-black-original-imagbyzezm5vkhyf.jpeg?q=50"
-          alt="shoes"
-        />
-        <div className="price-box">
-          <div className="current-price">Rs.10000</div>
-          <div className="discount-price">
-            <s>Rs.1000</s>
-          </div>
-          <div className="discount-info"> - 13% Off </div>
-        </div>
-        <h3 className="title">
-          Mens Shoes Price in Nepal - Buy Shoes For Men Online. Mens Shoes Price
-          in Nepal - Buy Shoes For Men Online
-        </h3>
-
-        <div className="action">
-          <button className="btn">add to cart</button>
-        </div>
-      </div>
-      <div className="content">
-        <img
-          src="https://rukminim1.flixcart.com/image/332/398/kyvvtzk0/shoe/5/q/w/9-500-corsac-black-original-imagbyzezm5vkhyf.jpeg?q=50"
-          alt="shoes"
-        />
-        <div className="price-box">
-          <div className="current-price">Rs.10000</div>
-          <div className="discount-price">
-            <s>Rs.1000</s>
-          </div>
-          <div className="discount-info"> - 13% Off </div>
-        </div>
-        <h3 className="title">
-          Mens Shoes Price in Nepal - Buy Shoes For Men Online
-        </h3>
-
-        <div className="action">
-          <button className="btn">add to cart</button>
-        </div>
-      </div>
-      <div className="content">
-        <img
-          src="https://rukminim1.flixcart.com/image/332/398/kyvvtzk0/shoe/5/q/w/9-500-corsac-black-original-imagbyzezm5vkhyf.jpeg?q=50"
-          alt="shoes"
-        />
-        <div className="price-box">
-          <div className="current-price">Rs.10000</div>
-          <div className="discount-price">
-            <s></s>
-          </div>
-          <div className="discount-info"> </div>
-        </div>
-        <h3 className="title">
-          Mens Shoes Price in Nepal - Buy Shoes For Men Online
-        </h3>
-
-        <div className="action">
-          <button className="btn">add to cart</button>
-        </div>
-      </div>
-      <div className="content">
-        <img
-          src="https://rukminim1.flixcart.com/image/332/398/kyvvtzk0/shoe/5/q/w/9-500-corsac-black-original-imagbyzezm5vkhyf.jpeg?q=50"
-          alt="shoes"
-        />
-        <div className="price-box">
-          <div className="current-price">Rs.10000</div>
-          <div className="discount-price">
-            <s>Rs.1000</s>
-          </div>
-          <div className="discount-info"> - 13% Off </div>
-        </div>
-        <h3 className="title">
-          Mens Shoes Price in Nepal - Buy Shoes For Men Online
-        </h3>
-
-        <div className="action">
-          <button className="btn">add to cart</button>
-        </div>
-      </div>
-      <div className="content">
-        <img
-          src="https://rukminim1.flixcart.com/image/332/398/kyvvtzk0/shoe/5/q/w/9-500-corsac-black-original-imagbyzezm5vkhyf.jpeg?q=50"
-          alt="shoes"
-        />
-        <div className="price-box">
-          <div className="current-price">Rs.10000</div>
-          <div className="discount-price">
-            <s>Rs.1000</s>
-          </div>
-          <div className="discount-info"> - 13% Off </div>
-        </div>
-        <h3 className="title">
-          Mens Shoes Price in Nepal - Buy Shoes For Men Online
-        </h3>
-
-        <div className="action">
-          <button className="btn">add to cart</button>
-        </div>
-      </div>
-      <div className="content">
-        <img
-          src="https://rukminim1.flixcart.com/image/332/398/kyvvtzk0/shoe/5/q/w/9-500-corsac-black-original-imagbyzezm5vkhyf.jpeg?q=50"
-          alt="shoes"
-        />
-        <div className="price-box">
-          <div className="current-price">Rs.10000</div>
-          <div className="discount-price">
-            <s>Rs.1000</s>
-          </div>
-          <div className="discount-info"> - 13% Off </div>
-        </div>
-        <h3 className="title">
-          Mens Shoes Price in Nepal - Buy Shoes For Men Online
-        </h3>
+        <h3 className="title">{product.title}</h3>
 
         <div className="action">
           <button className="btn">add to cart</button>

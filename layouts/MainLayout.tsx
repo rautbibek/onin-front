@@ -3,7 +3,7 @@ import PageFooter from "../components/organism/PageFooter";
 import styled from "styled-components";
 const Main = styled.main`
   min-height: 400px;
-  background-color: #f5f6f7;
+  background-color: #fff;
   /* @media (min-width: 1400px) {
     width: 1420px;
   } */

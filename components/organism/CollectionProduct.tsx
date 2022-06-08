@@ -5,21 +5,30 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import axios from "axios";
+import axiosClient from "../../axios/axios";
 import { useQuery } from "react-query";
 import Card from "../molicules/Card";
-
+import Row from "../atom/row";
 const CollectionContainer = styled.div`
-  margin: 10px 0px;
+  min-height: 200px;
+  margin: 60px 20px;
+  & .collection-content {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
   & .collection-header {
     width: 100%;
     display: flex;
-    /* margin-bottom: 10px; */
     align-items: center;
-    /* background-color: #e3e3e3; */
-    /* border-bottom: 1px solid #c5c1c1; */
-    padding: 7px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #e3e3e3;
+    padding: 15px;
     & h3 {
+      font-size: 20px;
       font-weight: 500;
+      line-height: 1;
+      padding: 0px;
+      margin: 0px;
       text-transform: capitalize;
     }
   }
@@ -30,9 +39,7 @@ const CollectionContainer = styled.div`
 `;
 const CollectionProduct = () => {
   const allCollection = () => {
-    return axios.get(
-      "https://system.onininternational.com/api/v1/all/collection"
-    );
+    return axiosClient.get("/all/collection");
   };
   const onSuccess = () => {
     console.log("success");
@@ -56,10 +63,12 @@ const CollectionProduct = () => {
           <div className="collection-header">
             <h3>{collection.name}</h3>
           </div>
-          <div className="product">
-            {collection.product.map((product: any) => (
-              <Card key={product.id}></Card>
-            ))}
+          <div className="collection-content">
+            <Row>
+              {collection.product.map((product: any) => (
+                <Card key={product.id} product={product}></Card>
+              ))}
+            </Row>
           </div>
         </>
       ))}

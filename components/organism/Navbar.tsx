@@ -68,7 +68,6 @@ const Navbar = () => {
                           style={{
                             lineHeight: "20px",
                           }}
-                          key={item.id}
                           className="hoverable"
                         >
                           <strong style={{ textTransform: "capitalize" }}>
