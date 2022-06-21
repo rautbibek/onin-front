@@ -8,6 +8,8 @@ import {
   ShoppingCartOutlined,
   HeartOutlined,
 } from "@ant-design/icons";
+import Link from "next/link";
+import Router from "next/router";
 const Header = styled.div`
   min-height: 100px;
   background-color: #fcb800;
@@ -27,6 +29,7 @@ const Header = styled.div`
     width: 600px;
   }
   .title {
+    cursor: pointer;
     font-weight: 600;
     font-style: oblique;
   }
@@ -54,14 +57,18 @@ const Header = styled.div`
     }
   }
 `;
-
 const PageHeader = () => {
   return (
     <header>
       <Header>
         <div className="header-top">
           <div className="header-conternt">
-            <h1 className="title">
+            <h1
+              className="title"
+              onClick={() => {
+                Router.push("/");
+              }}
+            >
               Onin<span>International</span>
             </h1>
           </div>
@@ -114,11 +121,21 @@ const PageHeader = () => {
                 }
               />
               <div>
-                <a className="hoverable" href="/login">
+                <a
+                  onClick={() => {
+                    Router.push("/login");
+                  }}
+                  className="hoverable"
+                >
                   Login
                 </a>
                 <br />
-                <a className="hoverable" href="/register">
+                <a
+                  onClick={() => {
+                    Router.push("/register");
+                  }}
+                  className="hoverable"
+                >
                   Register
                 </a>
               </div>

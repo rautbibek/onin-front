@@ -1,21 +1,26 @@
 import styled from "styled-components";
 import {
-  RocketOutlined,
+  MoneyCollectOutlined,
   ReloadOutlined,
   SyncOutlined,
-  FireOutlined,
+  CommentOutlined,
   LaptopOutlined,
   CarOutlined,
 } from "@ant-design/icons";
 const SiteOptionContainer = styled.section`
-  min-height: 200px;
-  border: 1px solid grey;
-  margin: 20px;
   display: flex;
+  border-bottom: 1px solid #f5f5f5;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  & div > h3 {
+
+  & div {
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+
     text-transform: capitalize;
     font-weight: bold;
   }
@@ -29,70 +34,53 @@ const SiteOption = () => {
   return (
     <SiteOptionContainer>
       <div>
-        <RocketOutlined
+        <MoneyCollectOutlined
           style={{
-            fontSize: "60px",
-            transform: "rotate(30deg)",
+            fontSize: "40px",
+            fontWeight: "300",
             color: "#fcb800",
           }}
         />
-        <h2>title</h2>
-        <p>Information</p>
+        Lowest Price Guarantee
       </div>
       <div>
         <SyncOutlined
           style={{
-            fontSize: "60px",
+            fontSize: "40px",
 
             color: "#fcb800",
           }}
         />
-        <h2>title</h2>
-        <p>Information</p>
+        Free Shipping
       </div>
       <div>
-        <FireOutlined
+        <CommentOutlined
           style={{
-            fontSize: "60px",
+            fontSize: "40px",
 
             color: "#fcb800",
           }}
         />
-        <h2>title</h2>
-        <p>Information</p>
+        24x7 Support
       </div>
       <div>
         <LaptopOutlined
           style={{
-            fontSize: "60px",
-
+            fontSize: "40px",
+            fontWeight: "200",
             color: "#fcb800",
           }}
         />
-        <h2>title</h2>
-        <p>Information</p>
+        100% Satisfaction
       </div>
       <div>
         <ReloadOutlined
           style={{
-            fontSize: "60px",
-
+            fontSize: "40px",
             color: "#fcb800",
           }}
         />
-        <h2>title</h2>
-        <p>Information</p>
-      </div>
-      <div>
-        <CarOutlined
-          style={{
-            fontSize: "60px",
-
-            color: "#fcb800",
-          }}
-        />
-        <h2>title</h2>
-        <p>Information</p>
+        7 Days Return
       </div>
     </SiteOptionContainer>
   );

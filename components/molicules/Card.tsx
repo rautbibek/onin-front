@@ -1,4 +1,5 @@
 import { Button } from "antd";
+import Router from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 const CardContainer = styled.div`
@@ -61,7 +62,9 @@ const CardContainer = styled.div`
       border-radius: 50%;
 
       :hover {
+        content: "-";
         display: block;
+        color: white;
         transition: 0.3s;
         transform: scale(1.1);
         border: 2px solid white;
@@ -132,13 +135,8 @@ const CardContainer = styled.div`
   }
 `;
 const Card = (props: any) => {
+  const router = Router;
   const { product } = props;
-  console.log(product);
-  const [priceCalculator, setPriceCalculator] = useState({
-    current_price: null,
-    price: null,
-    available_stock: null,
-  });
 
   const discountedPrice = (
     variant: any,
@@ -161,7 +159,11 @@ const Card = (props: any) => {
     <CardContainer>
       <div className="content">
         <div className="image-container">
-          <img src={product.cover_image} alt={product.title} />
+          <img
+            onClick={() => router.push("product/" + product.id)}
+            src={product.cover_image}
+            alt={product.title}
+          />
           <div className="color-options">
             {product.variant.map((variant: any) => (
               <div
@@ -173,7 +175,10 @@ const Card = (props: any) => {
           </div>
         </div>
 
-        <div className="price-box">
+        <div
+          className="price-box"
+          onClick={() => router.push("product/" + product.id)}
+        >
           <div className="current-price">
             Rs.
             {discountedPrice(
@@ -182,13 +187,13 @@ const Card = (props: any) => {
               product.discount_type
             )}
           </div>
-          {product.discount && (
+          {product.discount != 0 && (
             <small className="discount-price">
               <s>Rs.{product.variant[0].price}</s>
             </small>
           )}
 
-          {product.discount && (
+          {product.discount != 0 && (
             <small className="discount-info">
               {"-"}
               {product.discount}
@@ -196,7 +201,12 @@ const Card = (props: any) => {
             </small>
           )}
         </div>
-        <h3 className="title">{product.title}</h3>
+        <h3
+          onClick={() => router.push("product/" + product.id)}
+          className="title"
+        >
+          {product.title}
+        </h3>
 
         <div className="action">
           <button className="btn">add to cart</button>

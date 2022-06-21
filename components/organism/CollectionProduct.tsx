@@ -1,10 +1,4 @@
 import styled from "styled-components";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
-import axios from "axios";
 import axiosClient from "../../axios/axios";
 import { useQuery } from "react-query";
 import Card from "../molicules/Card";
@@ -41,19 +35,10 @@ const CollectionProduct = () => {
   const allCollection = () => {
     return axiosClient.get("/all/collection");
   };
-  const onSuccess = () => {
-    console.log("success");
-  };
-  const onError = () => {
-    console.log("error");
-  };
+
   const { isLoading, isFetching, data, isError } = useQuery(
     "collection",
-    allCollection,
-    {
-      onSuccess,
-      onError,
-    }
+    allCollection
   );
 
   return (
